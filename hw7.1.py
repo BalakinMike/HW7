@@ -27,30 +27,31 @@ def cook_books(recept): # Формирование кулинарной книг
 def get_shop_list_by_dishes(cook_book, dishes, person_count): #Формирование списка ингридиентов
     numb_ingridients = {}
     
-    for i in dishes:
-        for j in range (0, len(cook_book[i])):
+    for dish in dishes:
+        for j in range (0, len(cook_book[dish])): # Счётчик по количеству ингридиентов
             n_ing = {}
-            if (cook_book[i][j]['ingredient_name']) not in numb_ingridients:
-                n_ing['quantity'] = int(cook_book[i][j]['quantity'])*person_count
-                n_ing['measure'] = cook_book[i][j]['measure']
-                numb_ingridients[cook_book[i][j]['ingredient_name']] = n_ing
-            else:
-                n_ing['quantity'] = int(cook_book[i][j]['quantity'])*person_count + int(cook_book[i][j]['quantity'])*person_count
-                n_ing['measure'] = cook_book[i][j]['measure']
-                numb_ingridients[cook_book[i][j]['ingredient_name']] = n_ing
+            if (cook_book[dish][j]['ingredient_name']) not in numb_ingridients: # Проверка на повторяемость ингридиентов
+                n_ing['quantity'] = int(cook_book[dish][j]['quantity'])*person_count
+                n_ing['measure'] = cook_book[dish][j]['measure']
+                numb_ingridients[cook_book[dish][j]['ingredient_name']] = n_ing
+            else: # Если ингридиент уже существует, то его количество просто увеличивается
+                n_ing['quantity'] = int(cook_book[dish][j]['quantity'])*person_count + int(cook_book[i][j]['quantity'])*person_count
+                n_ing['measure'] = cook_book[dish][j]['measure']
+                numb_ingridients[cook_book[dish][j]['ingredient_name']] = n_ing
     pprint(numb_ingridients)
         
     return
-#cook_books('recept.txt')
+
+# Основная программа
 cook_book = cook_books('recept.txt')
 from pprint import pprint
-pprint(cook_book)
+pprint(cook_book) # Вывод всей кулинарной книги
 
 
 # Формирование запроса на нужные блюда
 dishes = []
 dish = ' '
-while dish != '':
+while dish != '': # Проверка на конец ввода блюд
     dish = input('Введите желаемое блюдо (соблюдая формат названия из кулинарной книги). Конец заказа - пустой ввод: ')
     if dish in cook_book:
         dishes.append(dish)
@@ -60,6 +61,3 @@ while dish != '':
 
 person_count = int(input('Введите количество гостей: '))
 get_shop_list_by_dishes(cook_book, dishes, person_count)
-#print(dishes)
-#print(cook_book['Омлет'][1]['ingredient_name'])
-#cook_books('recept.txt')
