@@ -3,12 +3,12 @@
 from itertools import count
 
 
-def inspect_file(text_file): # 
+def inspect_file(text_file): # Процедура подсчёта длины файлов
     with open(text_file, encoding='utf-8') as file:
         n = len(file.readlines())
     return (n)
 
-def read_write(t_file, key):
+def read_write(t_file, key):# Процедура чтения файла и записи информации в общий файл
     with open(t_file, 'r', encoding='utf-8') as file_read, open(r'final_file.txt', 'a', encoding='utf-8') as file_write:
             num = str(key)
             file_write.write(t_file)
@@ -20,16 +20,13 @@ def read_write(t_file, key):
             file_write.write('\n')
     return
 
-list_file = {}
-len_file = inspect_file('1.txt')
-list_file[len_file] = '1.txt'
-len_file = inspect_file('2.txt')
-list_file[len_file] = '2.txt'
-len_file = inspect_file('3.txt')
-list_file[len_file] = '3.txt'
-print(list_file)
-count_key = list(list_file.keys())
+work_list = ['1.txt', '2.txt', '3.txt'] # Список названий файлов для обработки
+list_file = {} # Словарь ключ - число строк, значение  - название файла
+for work_file in work_list:
+    len_file = inspect_file(work_file)
+    list_file[len_file] = work_file
+
+count_key = list(list_file.keys()) # сортировка ключей по возрастанию 
 count_key.sort()
-print(count_key)
 for key in count_key:
     read_write(list_file[key], key)

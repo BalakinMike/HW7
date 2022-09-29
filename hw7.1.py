@@ -35,7 +35,7 @@ def get_shop_list_by_dishes(cook_book, dishes, person_count): #Формиров�
                 n_ing['measure'] = cook_book[dish][j]['measure']
                 numb_ingridients[cook_book[dish][j]['ingredient_name']] = n_ing
             else: # Если ингридиент уже существует, то его количество просто увеличивается
-                n_ing['quantity'] = int(cook_book[dish][j]['quantity'])*person_count + int(cook_book[i][j]['quantity'])*person_count
+                n_ing['quantity'] = int(cook_book[dish][j]['quantity'])*person_count + int(cook_book[dish][j]['quantity'])*person_count
                 n_ing['measure'] = cook_book[dish][j]['measure']
                 numb_ingridients[cook_book[dish][j]['ingredient_name']] = n_ing
     pprint(numb_ingridients)
